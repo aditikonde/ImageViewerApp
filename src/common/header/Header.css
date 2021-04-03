@@ -1,0 +1,15 @@
+#header {
+    width: 100%;
+    background-color: #263238;
+}
+
+#logo {
+    padding: 15px;
+    width: 35%;
+}
+
+#logo > span {
+    color: #fff;
+    font-size: 18px;
+}
+
