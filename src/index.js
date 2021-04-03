@@ -2,11 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
+import Controller from './screens/controller/Controller';
 
 ReactDOM.render(
   <React.StrictMode>
     <div>
-      Image Viewer
+      <Controller />
     </div>
   </React.StrictMode>,
   document.getElementById('root')
