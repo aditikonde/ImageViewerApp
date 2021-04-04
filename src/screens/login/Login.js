@@ -17,7 +17,9 @@ class Login extends Component {
             username: "",
             usernameReq: "displayNone",
             pwd: "",
-            pwdReq: "displayNone"
+            pwdReq: "displayNone",
+            invalidCred: "displayNone",
+            loggedIn: sessionStorage.getItem('access-token') == null ? false : true
         }
     }
 
@@ -30,15 +32,24 @@ class Login extends Component {
     }
 
     loginClickHandler = () => {
+        var username = "abc";
+        var password = "1234";
+        var accessToken = "IGQVJYT2M1dkF2TjE0VGFZAdFV2RERaUmxnTnAzV2poSVJMY3VfbG00SGx3Wkt2MmlieFJ1YVg0YkpZATGlZATUZAZAdzR0aFZAoZAC0zLUZASdGp3Q2drODdJTTV2N0Myb3JsQm5abV9wV3NxemcyUHQtUE5jRnFIRjVsQUdsRGo4";
+
+
         this.state.username === "" ? this.setState({ usernameReq: "displayBlock" }) : this.setState({ usernameReq: "displayNone" });
 
         this.state.pwd === "" ? this.setState({ pwdReq: "displayBlock" }) : this.setState({ pwdReq: "displayNone" });
 
-        if (this.state.username !== "" && this.state.pwd !== "") {
+        if (this.state.username === username && this.state.pwd === password) {
+            sessionStorage.setItem("access-token", accessToken);
+            this.setState({ loggedIn: true });
             this.props.history.push({
-                pathname: '/home'
+                pathname: '/home',
             })
         } else {
+            if (this.state.username !== "" && this.setState.pwd !== "")
+                this.setState({ invalidCred: "displayBlock" });
             return;
         }
     }
@@ -70,6 +81,10 @@ class Login extends Component {
                             </FormControl>
                             <br />
                             <br />
+                            <FormHelperText className={this.state.invalidCred}>
+                                <span className="red">Incorrect username and/or password</span>
+                            </FormHelperText>
+
                             <br />
                             <Button variant="contained" color="primary" onClick={this.loginClickHandler} className="login-btn">Login</Button>
                         </CardContent>
