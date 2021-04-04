@@ -14,7 +14,7 @@ class Controller extends Component {
             <Router>
                 <Route exact path="/" render={(props) => <Login {...props} />} />
                 {/* <Route path="/home" render={(props) => <Home {...props} />} /> */}
-                <PrivateRoute path="/home" component={Home} />
+                <PrivateRoute path="/home" component={Home} exact />
             </Router>
         );
     }

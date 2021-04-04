@@ -45,7 +45,7 @@ class Login extends Component {
             sessionStorage.setItem("access-token", accessToken);
             this.setState({ loggedIn: true });
             this.props.history.push({
-                pathname: '/home',
+                pathname: '/home'
             })
         } else {
             if (this.state.username !== "" && this.setState.pwd !== "")
