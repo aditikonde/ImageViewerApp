@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Login from '../../screens/login/Login';
 import Home from '../../screens/home/Home';
+import Profile from '../profile/Profile';
 import PrivateRoute from '../../common/PrivateRoute';
+import { withRouter } from 'react-router';
 
 class Controller extends Component {
     constructor() {
@@ -12,9 +14,11 @@ class Controller extends Component {
     render() {
         return (
             <Router>
-                <Route exact path="/" render={(props) => <Login {...props} />} />
-                {/* <Route path="/home" render={(props) => <Home {...props} />} /> */}
-                <PrivateRoute path="/home" component={Home} exact />
+                <Switch>
+                    <Route exact path="/" component={Login} exact />
+                    <PrivateRoute path="/home" component={Home} exact />
+                    <PrivateRoute path="/profile" component={Profile} exact />
+                </Switch>
             </Router>
         );
     }
