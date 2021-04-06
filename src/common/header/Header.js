@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Header.css';
+import Avatar from '@material-ui/core/Avatar';
 import SearchIcon from '@material-ui/icons/Search';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
@@ -42,6 +43,7 @@ class Header extends Component {
     }
 
     render() {
+
         return (
             <header id="header">
                 <div id="logo">
@@ -64,9 +66,12 @@ class Header extends Component {
 
                     {this.props.isLoggedIn === "true" ?
                         <div className="user-icon">
-                            <IconButton aria-label="user-icon" aria-haspopup="true" onClick={this.handleClick}>
+                            {/* <IconButton aria-label="user-icon" aria-haspopup="true" onClick={this.handleClick}>
                                 <img src="../assets/userIcon.png" alt="user" className="user-pic"></img>
-                            </IconButton>
+                            </IconButton> */}
+
+                            <Avatar alt="user" src="https://e7.pngegg.com/pngimages/550/997/png-clipart-user-icon-foreigners-avatar-child-face.png" className="user-pic" onClick={this.handleClick}></Avatar>
+
                             <Menu
                                 id="simple-menu"
                                 anchorEl={this.state.anchorEl}

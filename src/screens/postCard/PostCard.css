@@ -1,0 +1,26 @@
+.post {
+    width: 450px;
+    margin: 20px;
+    padding-bottom: 0%;
+}
+.like-no {
+    color: black;
+    padding-left: 10px;
+}
+
+.comment-container {
+    display: flex;
+}
+
+.comment-ip {
+    width: 92%;
+}
+
+.comment-btn {
+    width: 8%;
+    margin-left: -45px;
+    margin-top: 12px;
+}
+.add-comment {
+    margin-bottom: 20px;
+}

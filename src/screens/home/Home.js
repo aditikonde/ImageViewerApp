@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import Header from '../../common/header/Header';
+import Posts from '../posts/Posts';
 
 class Home extends Component {
     constructor() {
         super();
         console.log();
         this.state = {
-            posts: [{}]
+            posts: []
         }
     }
 
@@ -22,6 +23,7 @@ class Home extends Component {
             if (this.readyState === 4) {
                 that.setState({ posts: JSON.parse(this.responseText).data });
             }
+            that.setState({ posts: that.state.posts })
             console.log(that.state.posts);
         });
         xhr.open("GET", api);
@@ -30,10 +32,12 @@ class Home extends Component {
     }
 
     render() {
+        let userPosts = this.state.posts;
+        console.log("-----" + JSON.stringify(userPosts));
         return (
             <div>
                 <Header isHome="true" isLoggedIn="true" />
-                <h1>Home page</h1>
+                <Posts posts={userPosts} />
             </div>
         );
     }

@@ -1,0 +1,5 @@
+.all-posts {
+    display: flex;
+    columns: 2 auto;
+    margin: 30px 150px;
+}
