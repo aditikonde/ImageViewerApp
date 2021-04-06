@@ -68,7 +68,9 @@ class PostCard extends Component {
         super();
         this.state = {
             likes: 4,
-            isLiked: false
+            isLiked: false,
+            comments: [],
+            comment: ""
         }
     }
 
@@ -83,6 +85,22 @@ class PostCard extends Component {
         }
     }
 
+    inputCommentHandler = (e) => {
+        let newComment = e.target.value;
+        this.setState({ comment: newComment });
+    }
+
+    addCommentHandler = () => {
+
+        let newComments = this.state.comments;
+        if (this.state.comment !== "") {
+            newComments.push(this.state.comment);
+            this.setState({ comments: newComments });
+            this.setState({ comment: "" });
+        } else {
+            return;
+        }
+    }
     randomFunc = () => {
         var x = Math.floor((Math.random() * 10) + 2);
         return x;
@@ -121,12 +139,12 @@ class PostCard extends Component {
                 </IconButton>
 
                 <CardContent className="comment-section">
-
-
-
+                    <div className="all-comments">
+                        <List list={this.state.comments} user="user-aditi" />
+                    </div>
                     <div className="comment-container">
                         <div className="comment-ip">
-                            <TextField id="standard-basic" style={{ width: '84%' }} label="Add a comment" />
+                            <TextField id="standard-basic" style={{ width: '84%' }} value={this.state.comment} label="Add a comment" onChange={this.inputCommentHandler} />
                         </div>
                         <div className="comment-btn">
                             <Button variant="contained" color="primary" className="add-comment" onClick={this.addCommentHandler}>Add</Button>
@@ -140,5 +158,13 @@ class PostCard extends Component {
     }
 
 }
+
+const List = ({ list, user }) => (
+    <ul>
+        {list.map((item) => (
+            <li key={item + "" + 1}><span style={{ fontWeight: "bold" }}>{user}:</span> {item}</li>
+        ))}
+    </ul>
+);
 
 export default withStyles(styles)(PostCard);
