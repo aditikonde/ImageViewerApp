@@ -34,7 +34,7 @@ class Login extends Component {
     loginClickHandler = () => {
         var username = "abc";
         var password = "123";
-        var accessToken = "IGQVJXanhIUmhfZAjlmanEtZAFZAsTm9uYTFNNlc4X3U2TlhZAVlRETUp4aEgwaFFMMW5mWGtBUlgxLTB0dkdEN1Q1M1ZAjaW1EVms3RTdwUXZA5bEpLcHg0OGg1SVFodmR2clpldzZAtMzJrVTVYS1JtY1hNd2ZASZA3BWZAkVNZAFU4";
+        var accessToken = "IGQVJYb0RyVUs1N1QzaWg2QVV1bTVFNkxTOXh4cWtTSFlXWm5UaDE4RzBCRXFtdnA5dkpRcnV2QW1QbF9ZAQkUtVlo1b1NnejZAxZAXBKSDcwTzMwWkpGSlFqR0xoTFJha2RKLVptS1JZANVhrN0JNSmdMVENBWUlGdmRMSUpv";
         var userId = "17841403041596747";
 
 

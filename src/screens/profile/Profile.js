@@ -4,7 +4,7 @@ class Profile extends Component {
     render() {
         return (
             <div>
-                <Header isLoggedIn="true" />
+                <Header isLoggedIn="true" isProfile="true" />
                 Profile
             </div>
         );

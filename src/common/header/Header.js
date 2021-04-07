@@ -83,10 +83,13 @@ class Header extends Component {
                                 onClose={this.handleClose}
                                 className="menu"
                             >
-                                <Link to="/profile" className="link">
-                                    <MenuItem >My account</MenuItem>
-                                </Link>
-                                <hr style={{ margin: "0px 10px" }} />
+                                {this.props.isProfile ? '' :
+                                    <Link to="/profile" className="link">
+                                        <MenuItem >My account</MenuItem>
+                                    </Link>}
+                                {this.props.isProfile ? '' :
+                                    <hr style={{ margin: "0px 10px" }} />
+                                }
                                 <Link to="/" className="link">
                                     <MenuItem onClick={this.logoutHandler}>Logout</MenuItem>
                                 </Link>
