@@ -14,15 +14,18 @@ const Posts = ({ posts }) => {
             { row.map(product => <PostCard key={product.id} className="col-md-3" post={product} />)}
         </div>)
     );
+
+
     return (
         <div className="post-grid">
+            {/* {postsList} */}
             {content}
         </div>
     );
     // return (
     //     <div className="post-grid">
     //         <div className="all-posts">
-    //             {posts.map(item => {
+    //             {this.props.postList.map(item => {
     //                 return <PostCard key={item.id} post={item} />
     //             })}
     //         </div>

@@ -50,6 +50,7 @@ const styles = theme => ({
     media: {
         height: 0,
         paddingTop: '56.25%', // 16:9
+
     },
     expand: {
         transform: 'rotate(0deg)',
@@ -70,7 +71,10 @@ class PostCard extends Component {
             likes: 4,
             isLiked: false,
             comments: [],
-            comment: ""
+            comment: "",
+            postDetails: {},
+            timestamp: "",
+            hashtag: ""
         }
     }
 
@@ -108,7 +112,33 @@ class PostCard extends Component {
     componentWillMount() {
         let randomLikes = this.randomFunc();
         this.setState({ likes: randomLikes });
+
+        let data = null;
+        let xhr = new XMLHttpRequest();
+        let that = this;
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+                that.setState({ postDetails: JSON.parse(this.responseText), timestamp: that.state.postDetails.timestamp })
+                console.log("postDetails", JSON.parse(this.responseText));
+            }
+        })
+
+        let accesstoken = sessionStorage.getItem("access-token");
+        let api = `https://graph.instagram.com/${this.props.post.id}?fields=id,media_type,media_url,username,timestamp&access_token=${accesstoken}`;
+        xhr.open("GET", api);
+        xhr.send(data);
     }
+
+    subStrAfterChars = (str, char, pos) => {
+        if (pos == 'b')
+            return str.substring(str.indexOf(char) + 1);
+        else if (pos == 'a')
+            return str.substring(0, str.indexOf(char));
+        else
+            return str;
+    }
+
+
 
     render() {
         const { classes } = this.props;
@@ -121,36 +151,52 @@ class PostCard extends Component {
                         </Avatar>
                     }
 
-                    title="Shrimp and Chorizo Paella"
-                    subheader="September 14, 2016"
+                    title={this.state.postDetails.username}
+                    subheader={new Date(this.state.postDetails.timestamp).getDate() +
+                        "/" + (new Date(this.state.postDetails.timestamp).getMonth() + 1) +
+                        "/" + new Date(this.state.postDetails.timestamp).getFullYear() +
+                        " " + new Date(this.state.postDetails.timestamp).getHours() +
+                        ":" + new Date(this.state.postDetails.timestamp).getMinutes() +
+                        ":" + new Date(this.state.postDetails.timestamp).getSeconds()}
                 />
-                <CardMedia
-                    className={classes.media}
-                    image="/static/images/cards/paella.jpg"
-                    title="Paella dish"
-                />
-                <CardContent>
-                    <Typography>{this.props.post.caption}</Typography>
-                </CardContent>
 
-                <IconButton aria-label="add to favorites" className="like" onClick={this.likeHandler}>
-                    {this.state.isLiked ? <Favorite style={{ color: "red" }} /> : <FavoriteIcon />}
-                    <Typography className="like-no">{this.state.likes} likes</Typography>
-                </IconButton>
+                <CardContent className="content">
+                    <div className="post-img">
+                        <CardMedia
 
-                <CardContent className="comment-section">
-                    <div className="all-comments">
-                        <List list={this.state.comments} user="user-aditi" />
+                            className={classes.media}
+                            image={this.state.postDetails.media_url}
+                        // title="Paella dish"
+                        />
+
                     </div>
-                    <div className="comment-container">
-                        <div className="comment-ip">
-                            <TextField id="standard-basic" style={{ width: '84%' }} value={this.state.comment} label="Add a comment" onChange={this.inputCommentHandler} />
-                        </div>
-                        <div className="comment-btn">
-                            <Button variant="contained" color="primary" className="add-comment" onClick={this.addCommentHandler}>Add</Button>
-                        </div>
-                    </div>
+                    <hr />
 
+                    {/* <CardContent > */}
+                    <Typography>{this.subStrAfterChars(this.props.post.caption, '#', 'a')}</Typography>
+                    <Typography style={{ color: 'deepskyblue' }}>#{this.subStrAfterChars(this.props.post.caption, '#', 'b')}</Typography>
+                    {/* </CardContent> */}
+
+
+                    <IconButton aria-label="add to favorites" className="like" onClick={this.likeHandler}>
+                        {this.state.isLiked ? <Favorite style={{ color: "red" }} /> : <FavoriteIcon />}
+                        <Typography className="like-no">{this.state.likes} likes</Typography>
+                    </IconButton>
+
+                    <div className="comment-section">
+                        <div className="all-comments">
+                            <List list={this.state.comments} user={this.state.postDetails.username} />
+                        </div>
+                        <div className="comment-container">
+                            <div className="comment-ip">
+                                <TextField id="standard-basic" style={{ width: '84%' }} value={this.state.comment} label="Add a comment" onChange={this.inputCommentHandler} />
+                            </div>
+                            <div className="comment-btn">
+                                <Button variant="contained" color="primary" className="add-comment" onClick={this.addCommentHandler}>Add</Button>
+                            </div>
+                        </div>
+
+                    </div>
                 </CardContent>
 
             </Card>

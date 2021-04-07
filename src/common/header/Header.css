@@ -58,3 +58,8 @@
     margin-top: 45px;
     margin-left: -30px;
 }
+
+.link {
+    text-decoration: none;
+    color: black;
+}

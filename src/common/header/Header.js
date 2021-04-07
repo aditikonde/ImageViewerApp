@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Header.css';
+import { Link } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import SearchIcon from '@material-ui/icons/Search';
 import IconButton from '@material-ui/core/IconButton';
@@ -29,17 +30,17 @@ class Header extends Component {
         // document.getElementById("standard-adornment-amount").style.borderBottom = "none";
     }
 
-    profilePageHandler = () => {
-        this.props.history.push({
-            pathname: '/profile'
-        });
-    }
+    // profilePageHandler = () => {
+    //     this.props.history.push({
+    //         pathname: '/profile'
+    //     });
+    // }
 
     logoutHandler = () => {
         sessionStorage.clear();
-        this.props.history.push({
-            pathname: '/'
-        })
+        // this.props.history.push({
+        //     pathname: '/'
+        // })
     }
 
     render() {
@@ -80,10 +81,13 @@ class Header extends Component {
                                 onClose={this.handleClose}
                                 className="menu"
                             >
-
-                                <MenuItem onClick={this.profilePageHandler}>My account</MenuItem>
+                                <Link to="/profile" className="link">
+                                    <MenuItem >My account</MenuItem>
+                                </Link>
                                 <hr />
-                                <MenuItem onClick={this.logoutHandler}>Logout</MenuItem>
+                                <Link to="/" className="link">
+                                    <MenuItem onClick={this.logoutHandler}>Logout</MenuItem>
+                                </Link>
                             </Menu>
                         </div> : ""
                     }

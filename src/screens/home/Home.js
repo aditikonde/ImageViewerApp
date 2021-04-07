@@ -33,6 +33,7 @@ class Home extends Component {
 
     render() {
         let userPosts = this.state.posts;
+        console.log("======" + userPosts);
         console.log("-----" + JSON.stringify(userPosts));
         return (
             <div>
