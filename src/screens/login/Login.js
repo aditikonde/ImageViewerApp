@@ -33,7 +33,7 @@ class Login extends Component {
 
     loginClickHandler = () => {
         var username = "abc";
-        var password = "1234";
+        var password = "123";
         var accessToken = "IGQVJXanhIUmhfZAjlmanEtZAFZAsTm9uYTFNNlc4X3U2TlhZAVlRETUp4aEgwaFFMMW5mWGtBUlgxLTB0dkdEN1Q1M1ZAjaW1EVms3RTdwUXZA5bEpLcHg0OGg1SVFodmR2clpldzZAtMzJrVTVYS1JtY1hNd2ZASZA3BWZAkVNZAFU4";
         var userId = "17841403041596747";
 
@@ -47,7 +47,7 @@ class Login extends Component {
             sessionStorage.setItem("user-id", userId);
             this.setState({ loggedIn: true });
             this.props.history.push({
-                pathname: '/home'
+                pathname: '/profile'
             })
         } else {
             if (this.state.username !== "" && this.setState.pwd !== "")

@@ -48,7 +48,9 @@ class Header extends Component {
         return (
             <header id="header">
                 <div id="logo">
-                    <span>Image Viewer</span>
+                    <Link to="/home" className="no-underline">
+                        <span id="home-logo">Image Viewer</span>
+                    </Link>
                 </div>
                 <div className="home-page-obj">
 
@@ -84,7 +86,7 @@ class Header extends Component {
                                 <Link to="/profile" className="link">
                                     <MenuItem >My account</MenuItem>
                                 </Link>
-                                <hr />
+                                <hr style={{ margin: "0px 10px" }} />
                                 <Link to="/" className="link">
                                     <MenuItem onClick={this.logoutHandler}>Logout</MenuItem>
                                 </Link>
