@@ -27,7 +27,6 @@ class Home extends Component {
             console.log(that.state.posts);
         });
         xhr.open("GET", api);
-        // xhr.setRequestHeader("Cache-Control", "no-cache");
         xhr.send(data);
     }
 
@@ -38,7 +37,7 @@ class Home extends Component {
         return (
             <div>
                 <Header isHome="true" isLoggedIn="true" />
-                <Posts posts={userPosts} />
+                <Posts posts={userPosts} home="true" />
             </div>
         );
     }
