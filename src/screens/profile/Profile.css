@@ -1,9 +1,7 @@
 .profile-page {
     margin: 20px 150px;
-    background-color: grey ;
     justify-content: center;
     text-align: center;
-    
 }
 
 .user-icon-circle {
@@ -38,16 +36,17 @@
     float: left;
 }
 
-ul {
+.ul-info {
     display: flex;
     float: left;
     width: 100%;
-    padding: 0px !important;
+    margin-left: -7% !important;
+    padding-left: 0px !important;
 }
 
 .li-info {
     width: 33%;
-    margin-right: 45px;
+    margin-right: 24px;
     list-style-type: none;
 }
 
@@ -77,6 +76,7 @@ ul {
 }
 
 .edit-modal {
+    background-color: #fff;
     width: 160px;
     height: auto;
     margin-left: 50%;
@@ -92,4 +92,16 @@ ul {
 
 .displayBlock {
     display: block;
+}
+
+.grid-list {
+    width: 500;
+    height: 450;
+}
+
+.img-gallery {
+    display: flex;
+    justify-content: space-around; 
+    overflow: hidden;
+    flex-wrap: wrap;
 }

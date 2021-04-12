@@ -34,7 +34,7 @@ class Login extends Component {
     loginClickHandler = () => {
         var username = "abc";
         var password = "123";
-        var accessToken = "IGQVJVd3VnT2I4NXVMRHdId3hvR2ctc3NsLU9uUFhXT1Azc04tbDMzR3NONFJtQlJyTVlDUFlfemZATLWl5R2d1YXU0MFU1WWxpenRORU01eEtXNWVvaDU5R0p4VmI3M2JkX1ZAzMzJCb3JSX2lScU9LVV96SENiUjEtemVB";
+        var accessToken = "IGQVJYN3ZAXaVhCTjFISm1kNndOU3ZAyQ1hOY2R1NjZA2cjlQRVVtT2tVN2ZAWNzZAIUUpvakdrVmN0SXhaVkZALdXFtbXFoVEhPZAGlwTlRsSnZAmemR6dmp4MUZAPcEJXVlh2c3V3dVZAHWDhYR3R0WDEySWhWbTlncVZA1aHNudTBv";
         var userId = "17841403041596747";
 
 
@@ -47,7 +47,7 @@ class Login extends Component {
             sessionStorage.setItem("user-id", userId);
             this.setState({ loggedIn: true });
             this.props.history.push({
-                pathname: '/profile'
+                pathname: '/home'
             })
         } else {
             if (this.state.username !== "" && this.setState.pwd !== "")

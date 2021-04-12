@@ -14,33 +14,21 @@ class Header extends Component {
         super(props);
         this.logoutHandler = this.logoutHandler.bind(this);
         this.state = {
-            anchorEl: null
+            anchorEl: null,
         }
     }
 
-    handleClose = () => {
+    menuHandleClose = () => {
         this.setState({ anchorEl: null });
     }
 
-    handleClick = (e) => {
+    menuHandleClick = (e) => {
         this.setState({ anchorEl: e.target });
     }
 
-    searchHandle = (obj) => {
-        // document.getElementById("standard-adornment-amount").style.borderBottom = "none";
-    }
-
-    // profilePageHandler = () => {
-    //     this.props.history.push({
-    //         pathname: '/profile'
-    //     });
-    // }
 
     logoutHandler = () => {
         sessionStorage.clear();
-        // this.props.history.push({
-        //     pathname: '/'
-        // })
     }
 
     render() {
@@ -61,7 +49,8 @@ class Header extends Component {
                                 id="standard-adornment-amount"
                                 placeholder="Search..."
                                 className="search"
-                                onChange={this.searchHandle(this)}
+                                // new line added
+                                onChange={this.props.searchHandle}
                                 startAdornment={<InputAdornment position="start"><SearchIcon className="search-icon" /></InputAdornment>}
                             />
                         </div> : ""
@@ -73,14 +62,14 @@ class Header extends Component {
                                 <img src="../assets/userIcon.png" alt="user" className="user-pic"></img>
                             </IconButton> */}
 
-                            <Avatar alt="user" src="https://e7.pngegg.com/pngimages/550/997/png-clipart-user-icon-foreigners-avatar-child-face.png" className="user-pic" onClick={this.handleClick}></Avatar>
+                            <Avatar alt="user" src="https://e7.pngegg.com/pngimages/550/997/png-clipart-user-icon-foreigners-avatar-child-face.png" className="user-pic" onClick={this.menuHandleClick}></Avatar>
 
                             <Menu
                                 id="simple-menu"
                                 anchorEl={this.state.anchorEl}
                                 keepMounted
                                 open={Boolean(this.state.anchorEl)}
-                                onClose={this.handleClose}
+                                onClose={this.menuHandleClose}
                                 className="menu"
                             >
                                 {this.props.isProfile ? '' :

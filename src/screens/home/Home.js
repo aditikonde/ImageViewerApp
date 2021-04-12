@@ -7,9 +7,23 @@ class Home extends Component {
         super();
         console.log();
         this.state = {
-            posts: []
+            posts: [],
+            searchField: '',
+            // postWithDetails: [],
         }
     }
+
+    // addPostWithDetails = (post) => {
+    //     let arrPost = this.state.postWithDetails;
+    //     arrPost.push(post);
+    //     this.setState({ postWithDetails: arrPost });
+    //     console.log("------------------" + this.state.postWithDetails);
+    // }
+
+    searchHandle = (e) => {
+        this.setState({ searchField: e.target.value });
+    }
+
 
     componentWillMount() {
 
@@ -23,8 +37,8 @@ class Home extends Component {
             if (this.readyState === 4) {
                 that.setState({ posts: JSON.parse(this.responseText).data });
             }
-            that.setState({ posts: that.state.posts })
-            console.log(that.state.posts);
+            that.setState({ posts: that.state.posts });
+            console.log("In home page" + that.state.posts);
         });
         xhr.open("GET", api);
         xhr.send(data);
@@ -32,12 +46,12 @@ class Home extends Component {
 
     render() {
         let userPosts = this.state.posts;
-        console.log("======" + userPosts);
-        console.log("-----" + JSON.stringify(userPosts));
+
+
         return (
             <div>
-                <Header isHome="true" isLoggedIn="true" />
-                <Posts posts={userPosts} home="true" />
+                <Header isHome="true" isLoggedIn="true" searchHandle={this.searchHandle} />
+                <Posts posts={userPosts} searchField={this.state.searchField} />
             </div>
         );
     }

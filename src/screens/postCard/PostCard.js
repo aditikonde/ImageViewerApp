@@ -30,7 +30,6 @@
 
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -44,6 +43,12 @@ import red from "@material-ui/core/colors/red";
 import TextField from '@material-ui/core/TextField';
 import './PostCard.css';
 import { Button } from '@material-ui/core';
+import Caption from '../../common/CaptionHashtag';
+import Like from '../../common/LikeComponent';
+import PostImage from '../postImage/PostImage';
+import AddComment from '../../common/AddComment';
+import Comments from '../../common/Comments';
+
 
 const styles = theme => ({
 
@@ -74,23 +79,32 @@ class PostCard extends Component {
             comment: "",
             postDetails: {},
             timestamp: "",
-            hashtag: ""
+            openImgModal: false
         }
     }
 
-    likeHandler = () => {
-        let numLikes = this.state.likes;
-        if (this.state.isLiked) {
-            this.setState({ likes: numLikes - 1 });
-            this.setState({ isLiked: false });
-        } else {
-            this.setState({ likes: numLikes + 1 });
-            this.setState({ isLiked: true });
-        }
+    changeNumLikes = (newLikes) => {
+        this.setState({ likes: newLikes });
     }
 
-    inputCommentHandler = (e) => {
-        let newComment = e.target.value;
+    changeLiked = (isLikedChanged) => {
+        this.setState({ isLiked: isLikedChanged });
+    }
+
+
+
+    // likeHandler = () => {
+    //     let numLikes = this.state.likes;
+    //     if (this.state.isLiked) {
+    //         this.setState({ likes: numLikes - 1 });
+    //         this.setState({ isLiked: false });
+    //     } else {
+    //         this.setState({ likes: numLikes + 1 });
+    //         this.setState({ isLiked: true });
+    //     }
+    // }
+
+    inputCommentHandler = (newComment) => {
         this.setState({ comment: newComment });
     }
 
@@ -138,10 +152,21 @@ class PostCard extends Component {
             return str;
     }
 
-
+    imageModalCloseHandler = () => {
+        this.setState({ openImgModal: false });
+    }
 
     render() {
         const { classes } = this.props;
+
+        if (this.props.isProfilePage) {
+            return (
+                <>
+                    <img src={this.state.postDetails.media_url} alt={this.state.postDetails.id} className="gallery-img" style={{ width: '100%' }} onClick={() => this.setState({ openImgModal: true })}></img>
+                    <PostImage open={this.state.openImgModal} modalCloseHandler={this.imageModalCloseHandler} post={this.props.post} postDetails={this.state.postDetails} likes={this.state.likes} isLiked={this.state.isLiked} numLikesHandler={this.changeNumLikes} likeChangeHandler={this.changeLiked} comment={this.state.comment} comments={this.state.comments} inputCommntHandler={this.inputCommentHandler} addComment={this.addCommentHandler} caption={this.subStrAfterChars(this.props.post.caption, '#', 'a')} hashtag={this.subStrAfterChars(this.props.post.caption, '#', 'b')} />
+                </>
+            );
+        }
         return (
             <Card className="post">
                 <CardHeader
@@ -166,35 +191,40 @@ class PostCard extends Component {
 
                             className={classes.media}
                             image={this.state.postDetails.media_url}
-                        // title="Paella dish"
+
                         />
 
                     </div>
                     <hr />
 
-                    {/* <CardContent > */}
-                    <Typography>{this.subStrAfterChars(this.props.post.caption, '#', 'a')}</Typography>
-                    <Typography style={{ color: 'deepskyblue' }}>#{this.subStrAfterChars(this.props.post.caption, '#', 'b')}</Typography>
-                    {/* </CardContent> */}
+
+                    {/* <Typography>{this.subStrAfterChars(this.props.post.caption, '#', 'a')}</Typography>
+                    <Typography style={{ color: 'deepskyblue' }}>#{this.subStrAfterChars(this.props.post.caption, '#', 'b')}</Typography> */}
+                    <Caption caption={this.subStrAfterChars(this.props.post.caption, '#', 'a')} hashtag={this.subStrAfterChars(this.props.post.caption, '#', 'b')} />
 
 
-                    <IconButton aria-label="add to favorites" className="like" onClick={this.likeHandler}>
+                    {/* <IconButton aria-label="add to favorites" className="like" onClick={this.likeHandler}>
                         {this.state.isLiked ? <Favorite style={{ color: "red" }} /> : <FavoriteIcon />}
                         <Typography className="like-no">{this.state.likes} likes</Typography>
-                    </IconButton>
+                    </IconButton> */}
+                    <Like likes={this.state.likes} isLiked={this.state.isLiked} numLikesHandler={this.changeNumLikes} likeChangeHandler={this.changeLiked} />
 
                     <div className="comment-section">
-                        <div className="all-comments">
+                        {/* <div className="all-comments">
                             <List list={this.state.comments} user={this.state.postDetails.username} />
-                        </div>
-                        <div className="comment-container">
+                        </div> */}
+                        {/* <div className="comment-container">
                             <div className="comment-ip">
                                 <TextField id="standard-basic" style={{ width: '84%' }} value={this.state.comment} label="Add a comment" onChange={this.inputCommentHandler} />
                             </div>
                             <div className="comment-btn">
                                 <Button variant="contained" color="primary" className="add-comment" onClick={this.addCommentHandler}>Add</Button>
                             </div>
-                        </div>
+                        </div> */}
+
+                        <Comments comments={this.state.comments} postDetails={this.state.postDetails} />
+
+                        <AddComment comment={this.state.comment} comments={this.state.comments} inputCommntHandler={this.inputCommentHandler} addComment={this.addCommentHandler} />
 
                     </div>
                 </CardContent>
@@ -205,12 +235,12 @@ class PostCard extends Component {
 
 }
 
-const List = ({ list, user }) => (
-    <ul>
-        {list.map((item) => (
-            <li key={item + "" + 1}><span style={{ fontWeight: "bold" }}>{user}:</span> {item}</li>
-        ))}
-    </ul>
-);
+// const List = ({ list, user }) => (
+//     <ul>
+//         {list.map((item) => (
+//             <li key={item + "" + 1} className="li-comment"><span style={{ fontWeight: "bold" }}>{user}:</span> {item}</li>
+//         ))}
+//     </ul>
+// );
 
 export default withStyles(styles)(PostCard);

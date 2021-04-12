@@ -12,6 +12,10 @@ import Modal from 'react-modal';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import './Profile.css';
 import { Typography } from '@material-ui/core';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import PostImage from '../postImage/PostImage';
+import PostCard from '../postCard/PostCard';
 
 
 class Profile extends Component {
@@ -22,6 +26,7 @@ class Profile extends Component {
             tempName: "",
             tempNameReq: "displayNone",
             isModalOpen: false,
+            posts: [],
         }
     }
 
@@ -50,23 +55,23 @@ class Profile extends Component {
         this.setState({ isModalOpen: false });
     }
 
-    // componentWillMount() {
-    //     let accessToken = sessionStorage.getItem("access-token");
-    //     let api = `https://graph.instagram.com/me/media?fields=id,caption&access_token=${accessToken}/`;
+    componentWillMount() {
+        let accessToken = sessionStorage.getItem("access-token");
+        let api = `https://graph.instagram.com/me/media?fields=id,caption&access_token=${accessToken}/`;
 
-    //     let that = this;
-    //     let data = null;
-    //     let xhr = new XMLHttpRequest();
-    //     xhr.addEventListener("readystatechange", function () {
-    //         if (this.readyState === 4) {
-    //             that.setState({ posts: JSON.parse(this.responseText).data });
-    //         }
-    //         that.setState({ posts: that.state.posts })
-    //         console.log(that.state.posts);
-    //     });
-    //     xhr.open("GET", api);
-    //     xhr.send(data);
-    // }
+        let that = this;
+        let data = null;
+        let xhr = new XMLHttpRequest();
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+                that.setState({ posts: JSON.parse(this.responseText).data });
+            }
+            that.setState({ posts: that.state.posts })
+            console.log("in Profile page : " + that.state.posts);
+        });
+        xhr.open("GET", api);
+        xhr.send(data);
+    }
 
     render() {
         return (
@@ -82,10 +87,10 @@ class Profile extends Component {
                         <div className="info ">
                             <div className="insta-handle info-divs"><span className="insta-handle-name" >upgrad_sde</span></div>
                             <div className="user-info-sec info-divs">
-                                <ul>
-                                    <li className="li-info">Posts: 20</li>
-                                    <li className="li-info">Follows: 32</li>
-                                    <li className="li-info">Followed By: 50</li>
+                                <ul className="ul-info">
+                                    <li className="li-info">Posts: {this.state.posts.length}</li>
+                                    <li className="li-info">Follows: 132</li>
+                                    <li className="li-info">Followed By: 150</li>
                                 </ul>
                             </div>
                             <div className="ful-name info-divs">
@@ -123,12 +128,14 @@ class Profile extends Component {
                     </div>
 
                     <div className="img-gallery">
-                        <PostImage />
-                        <PostImage />
-                        <PostImage />
-                        <PostImage />
-                        <PostImage />
-                        <PostImage />
+                        <GridList className="grid-list" cols={3}>
+                            {this.state.posts.map((tile) => (
+
+                                <GridListTile key={tile.id} style={{ width: '310px', height: '300px', margin: '1px' }}>
+                                    <PostCard isProfilePage="true" post={tile} />
+                                </GridListTile>
+                            ))}
+                        </GridList>
                     </div>
                 </div>
             </div>

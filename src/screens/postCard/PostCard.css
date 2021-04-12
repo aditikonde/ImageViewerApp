@@ -4,9 +4,7 @@
     margin: 20px;
     padding-bottom: 0%;
 }
-.like {
-    padding: -1%;
-}
+
 .like-no {
     color: black;
     padding-left: 10px;
@@ -29,15 +27,13 @@
     margin-bottom: 20px;
 }
 
-
-
 .all-comments {
-    margin-top: -33px;
+    margin-top: -10px;
     margin-bottom: 10px;
     width: 100%;
 }
 
-li {
+.li-comment {
     list-style-type: none;
     margin-left: -38px;
 }
