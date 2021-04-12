@@ -1,15 +1,11 @@
-import { RoomService } from '@material-ui/icons';
 import React from 'react';
 import PostCard from '../postCard/PostCard';
 import './Posts.css';
 
 const Posts = ({ posts, searchField }) => {
-
-
     const filteredPosts = posts.filter(post => (
         post.caption.toLowerCase().includes(searchField)
     ))
-
 
     const rows = [...Array(Math.ceil(filteredPosts.length / 2))];
     // chunk the products into the array of rows

@@ -3,7 +3,6 @@ import './Header.css';
 import { Link } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import SearchIcon from '@material-ui/icons/Search';
-import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -49,7 +48,7 @@ class Header extends Component {
                                 id="standard-adornment-amount"
                                 placeholder="Search..."
                                 className="search"
-                                // new line added
+                                disableUnderline={true}
                                 onChange={this.props.searchHandle}
                                 startAdornment={<InputAdornment position="start"><SearchIcon className="search-icon" /></InputAdornment>}
                             />

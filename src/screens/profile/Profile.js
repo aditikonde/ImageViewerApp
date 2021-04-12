@@ -4,7 +4,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import Fab from '@material-ui/core/Fab';
 import EditIcon from '@material-ui/icons/Edit';
-import FavoriteIcon from '@material-ui/icons/Favorite';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
@@ -14,7 +13,6 @@ import './Profile.css';
 import { Typography } from '@material-ui/core';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
-import PostImage from '../postImage/PostImage';
 import PostCard from '../postCard/PostCard';
 
 
@@ -47,7 +45,6 @@ class Profile extends Component {
 
     handleOpen = () => {
         this.setState({ isModalOpen: true });
-        console.log(this.state.isModalOpen + "   --- Check modal is open");
     }
 
     handleClose = () => {
@@ -67,7 +64,7 @@ class Profile extends Component {
                 that.setState({ posts: JSON.parse(this.responseText).data });
             }
             that.setState({ posts: that.state.posts })
-            console.log("in Profile page : " + that.state.posts);
+
         });
         xhr.open("GET", api);
         xhr.send(data);
@@ -97,7 +94,7 @@ class Profile extends Component {
                                 <span className="full-name">
                                     {this.state.fullName}
                                 </span>
-                                <Button variant="fab" color="secondary" className="edit-btn" onClick={this.handleOpen}>
+                                <Button color="secondary" className="edit-btn" onClick={this.handleOpen}>
                                     <Fab color="secondary" aria-label="edit">
                                         <EditIcon />
                                     </Fab>

@@ -1,33 +1,3 @@
-// import React, { Component } from 'react';
-// import Card from '@material-ui/core/Card';
-// import Typography from '@material-ui/core/Typography';
-// import CardContent from '@material-ui/core/CardContent';
-// import FavoriteIcon from '@material-ui/icons/Favorite';
-// import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-// import './PostCard.css';
-// import { CardHeader } from '@material-ui/core';
-
-// class PostCard extends Component {
-//     render() {
-//         console.log("*******************" + this.props.post.id)
-//         return (
-//             <div>
-//                 <Card className="post">
-//                     <CardHeader>
-//                         <Typography>Username here</Typography>
-//                     </CardHeader>
-//                     <CardContent>
-//                         <Typography variant="h5" component="h2" className="card-heading">{this.props.post.id}</Typography>
-//                         <br />
-//                         <Typography>{this.props.post.caption}</Typography>
-//                     </CardContent>
-//                 </Card>
-//             </div>
-//         );
-//     }
-// }
-// export default PostCard;
-
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -35,20 +5,17 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import Favorite from '@material-ui/icons/Favorite';
-import FavoriteIcon from '@material-ui/icons/FavoriteBorder';
-import red from "@material-ui/core/colors/red";
-import TextField from '@material-ui/core/TextField';
 import './PostCard.css';
-import { Button } from '@material-ui/core';
 import Caption from '../../common/CaptionHashtag';
 import Like from '../../common/LikeComponent';
 import PostImage from '../postImage/PostImage';
 import AddComment from '../../common/AddComment';
 import Comments from '../../common/Comments';
 
+const randomFunc = () => {
+    var x = Math.floor((Math.random() * 10) + 2);
+    return x;
+}
 
 const styles = theme => ({
 
@@ -70,18 +37,16 @@ const styles = theme => ({
 });
 class PostCard extends Component {
 
-    constructor() {
-        super();
-        this.state = {
-            likes: 4,
-            isLiked: false,
-            comments: [],
-            comment: "",
-            postDetails: {},
-            timestamp: "",
-            openImgModal: false
-        }
+    state = {
+        likes: 4,
+        isLiked: false,
+        comments: [],
+        comment: "",
+        postDetails: {},
+        timestamp: "",
+        openImgModal: false
     }
+
 
     changeNumLikes = (newLikes) => {
         this.setState({ likes: newLikes });
@@ -91,18 +56,6 @@ class PostCard extends Component {
         this.setState({ isLiked: isLikedChanged });
     }
 
-
-
-    // likeHandler = () => {
-    //     let numLikes = this.state.likes;
-    //     if (this.state.isLiked) {
-    //         this.setState({ likes: numLikes - 1 });
-    //         this.setState({ isLiked: false });
-    //     } else {
-    //         this.setState({ likes: numLikes + 1 });
-    //         this.setState({ isLiked: true });
-    //     }
-    // }
 
     inputCommentHandler = (newComment) => {
         this.setState({ comment: newComment });
@@ -119,12 +72,9 @@ class PostCard extends Component {
             return;
         }
     }
-    randomFunc = () => {
-        var x = Math.floor((Math.random() * 10) + 2);
-        return x;
-    }
+
     componentWillMount() {
-        let randomLikes = this.randomFunc();
+        let randomLikes = randomFunc();
         this.setState({ likes: randomLikes });
 
         let data = null;
@@ -133,7 +83,7 @@ class PostCard extends Component {
         xhr.addEventListener("readystatechange", function () {
             if (this.readyState === 4) {
                 that.setState({ postDetails: JSON.parse(this.responseText), timestamp: that.state.postDetails.timestamp })
-                console.log("postDetails", JSON.parse(this.responseText));
+
             }
         })
 
@@ -143,10 +93,11 @@ class PostCard extends Component {
         xhr.send(data);
     }
 
+
     subStrAfterChars = (str, char, pos) => {
-        if (pos == 'b')
+        if (pos === 'b')
             return str.substring(str.indexOf(char) + 1);
-        else if (pos == 'a')
+        else if (pos === 'a')
             return str.substring(0, str.indexOf(char));
         else
             return str;

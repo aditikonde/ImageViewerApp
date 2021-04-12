@@ -14,9 +14,9 @@ const AddComment = (props) => {
         props.addComment();
     }
     return (
-        <div className="comment-container">
+        <div className="comment-container" style={{ bottom: '10px' }}>
             <div className="comment-ip">
-                <TextField id="standard-basic" style={{ width: '84%' }} value={props.comment} label="Add a comment" onChange={inputCommentHandler} />
+                <TextField style={{ width: '84%' }} value={props.comment} label="Add a comment" onChange={inputCommentHandler} />
             </div>
             <div className="comment-btn">
                 <Button variant="contained" color="primary" className="add-comment" onClick={addCommentHandler}>Add</Button>

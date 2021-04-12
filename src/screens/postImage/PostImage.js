@@ -15,15 +15,9 @@ class PostImage extends Component {
         }
     }
 
-    // postImageOpenModalHandler = () => {
-    //     this.setState({ isImageModalOpen: true });
-    // }
-
     modalCloseHandler = () => {
         this.props.modalCloseHandler();
     }
-
-
 
     render() {
         return (
